@@ -9,6 +9,8 @@
 #include "InverterSettings.h"
 #include "Led_Single.h"
 #include "MessageOutput.h"
+#include "ModbusDtu.h"
+#include "ModbusSettings.h"
 #include "MqttHandleDtu.h"
 #include "MqttHandleHass.h"
 #include "MqttHandleInverter.h"
@@ -110,6 +112,11 @@ void setup()
     // Initialize SunPosition
     MessageOutput.print("Initialize SunPosition... ");
     SunPosition.init(scheduler);
+    MessageOutput.println("done");
+
+    // Initialize Modbus
+    MessageOutput.print("Initialize Modbus... ");
+    ModbusSettings.init();
     MessageOutput.println("done");
 
     // Initialize MqTT

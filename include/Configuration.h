@@ -90,6 +90,15 @@ struct CONFIG_T {
     } Ntp;
 
     struct {
+        bool TCPEnabled;
+        uint32_t Port;
+        uint32_t Clients;
+        uint32_t IDDTUPro;
+        uint32_t IDTotal;
+        uint32_t IDMeter;
+    } Modbus;
+
+    struct {
         bool Enabled;
         char Hostname[MQTT_MAX_HOSTNAME_STRLEN + 1];
         uint32_t Port;

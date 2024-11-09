@@ -13,6 +13,7 @@
 #include "WebApi_inverter.h"
 #include "WebApi_limit.h"
 #include "WebApi_maintenance.h"
+#include "WebApi_modbus.h"
 #include "WebApi_mqtt.h"
 #include "WebApi_network.h"
 #include "WebApi_ntp.h"
@@ -58,6 +59,7 @@ private:
     WebApiInverterClass _webApiInverter;
     WebApiLimitClass _webApiLimit;
     WebApiMaintenanceClass _webApiMaintenance;
+    WebApiModbusClass _webApiModbus;
     WebApiMqttClass _webApiMqtt;
     WebApiNetworkClass _webApiNetwork;
     WebApiNtpClass _webApiNtp;
