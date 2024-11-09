@@ -183,7 +183,7 @@
         "devinfo": {
             "NoInfo": "Informazioni non disponibili",
             "NoInfoLong": "Ancora nessuna informazione dall'inverter. Sto riprovando...",
-            "UnknownModel": "Modello sconosciuto! Per favore fornisci \"Hardware Part Number\" ed il modello (esempio HM-350) in una Issue su <a href=\"https://github.com/tbnobody/OpenDTU/issues\" target=\"_blank\">GitHub</a>.",
+            "UnknownModel": "Modello sconosciuto! Per favore fornisci \"Hardware Part Number\" ed il modello (esempio HM-350) in una Issue su <a href=\"https://github.com/soylentOrange/OpenDTU/issues\" target=\"_blank\">GitHub</a>.",
             "Serial": "Seriale",
             "ProdYear": "Produzione Annua",
             "ProdWeek": "Produzione Settimanale",
@@ -404,7 +404,7 @@
             "Cancel": "@:base.Cancel",
             "RebootOpenDTU": "Riavvio OpenDTU",
             "RebootQuestion": "Vuoi veramente riavvia il DTU?",
-            "RebootHint": "<b>Nota:</b> Normalmente non serve riavviare OpenDTU, in quanto esegue automaticamente il ravvio quando necessario (ad esempio dopo aggiornamento firmware). Modifiche alla configurazione vengono apprese subito, senza richiedere riavvio. Se devi riavviare a causa di un errore, ti preghiamo di segnalarcelo cliccando su <a href=\"https://github.com/tbnobody/OpenDTU/issues\" class=\"alert-link\" target=\"_blank\">https://github.com/tbnobody/OpenDTU/issues</a>."
+            "RebootHint": "<b>Nota:</b> Normalmente non serve riavviare OpenDTU, in quanto esegue automaticamente il ravvio quando necessario (ad esempio dopo aggiornamento firmware). Modifiche alla configurazione vengono apprese subito, senza richiedere riavvio. Se devi riavviare a causa di un errore, ti preghiamo di segnalarcelo cliccando su <a href=\"https://github.com/soylentOrange/OpenDTU/issues\" class=\"alert-link\" target=\"_blank\">https://github.com/soylentOrange/OpenDTU/issues</a>."
         },
         "dtuadmin": {
             "DtuSettings": "Impostazioni DTU",
@@ -626,11 +626,11 @@
             "ProjectOriginBody3": "Il software è stato sviluppato con le nostre migliori conoscenze e convinzioni. Tuttavia, non si assume alcuna responsabilità per malfunzionamenti o perdita di garanzia dell'inverter.",
             "ProjectOriginBody4": "OpenDTU è disponibile gratuitamente. Se hai pagato per questo software, probabilmente sei stato truffato.",
             "NewsUpdates": "Novità e Aggiornamenti",
-            "NewsUpdatesBody": "Nuovi aggiornamenti sono disponibili su Github: <a href=\"https://github.com/tbnobody/OpenDTU\" target=\"_blank\">https://github.com/tbnobody/OpenDTU</a>",
+            "NewsUpdatesBody": "Nuovi aggiornamenti sono disponibili su Github: <a href=\"https://github.com/soylentOrange/OpenDTU\" target=\"_blank\">https://github.com/soylentOrange/OpenDTU</a>",
             "ErrorReporting": "Segnalazione Errori",
-            "ErrorReportingBody": "Per favore segnala eventuali problemi utilizzando le funzionalità della piattaforma <a href=\"https://github.com/tbnobody/OpenDTU/issues\" target=\"_blank\">Github</a>",
+            "ErrorReportingBody": "Per favore segnala eventuali problemi utilizzando le funzionalità della piattaforma <a href=\"https://github.com/soylentOrange/OpenDTU/issues\" target=\"_blank\">Github</a>",
             "Discussion": "Discussioni",
-            "DiscussionBody": "Puoi avviare una discussione con noi su <a href=\"https://discord.gg/WzhxEY62mB\" target=\"_blank\">Discord</a> o <a href=\"https://github.com/tbnobody/OpenDTU/discussions\" target=\"_blank\">Github</a>"
+            "DiscussionBody": "Puoi avviare una discussione con noi su <a href=\"https://github.com/soylentOrange/OpenDTU/discussions\" target=\"_blank\">Github</a>"
         },
         "hints": {
             "RadioProblem": "Non è possibile dialogare con il modulo radio selezionato. Controlla i collegamenti alla radio.",
