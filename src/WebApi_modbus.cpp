@@ -75,26 +75,27 @@ void WebApiModbusClass::onModbusAdminPost(AsyncWebServerRequest* request)
 
     auto& retMsg = response->getRoot();
 
-    if (!root.containsKey("modbus_tcp_enabled") ||
-        !root.containsKey("modbus_clients") ||
-        !root.containsKey("modbus_id_dtupro") ||
-        !root.containsKey("modbus_id_total") ||
-        !root.containsKey("modbus_id_meter")) {
+    if (!(root["modbus_tcp_enabled"].is<bool>()
+            && root["modbus_clients"].is<uint32_t>()
+            && root["modbus_id_dtupro"].is<uint32_t>()
+            && root["modbus_id_total"].is<uint32_t>()
+            && root["modbus_id_meter"].is<uint32_t>())) {
         retMsg["message"] = "Values are missing!";
         retMsg["code"] = WebApiError::GenericValueMissing;
         WebApi.sendJsonResponse(request, response, __FUNCTION__, __LINE__);
         return;
     }
 
-    CONFIG_T& config = Configuration.get();
+    {
+        auto guard = Configuration.getWriteGuard();
+        auto& config = guard.getConfig();
 
-    if (root["modbus_tcp_enabled"].as<bool>()) {
+        config.Modbus.TCPEnabled = root["modbus_tcp_enabled"].as<bool>();
         config.Modbus.Clients = root["modbus_clients"].as<uint32_t>();
         config.Modbus.IDDTUPro = root["modbus_id_dtupro"].as<uint32_t>();
         config.Modbus.IDTotal = root["modbus_id_total"].as<uint32_t>();
         config.Modbus.IDMeter = root["modbus_id_meter"].as<uint32_t>();
     }
-    config.Modbus.TCPEnabled = root["modbus_tcp_enabled"].as<bool>();
 
     WebApi.writeConfig(retMsg);
 

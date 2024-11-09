@@ -17,8 +17,8 @@ provides the OpenDTU aggregated data from all registered inverters.
 
 The webapp is extended by Modbus configuration and info views.
 
-The Modbus library used for Modbus communication is: https://github.com/eModbus/eModbus.
-Documentation for the library is here: https://emodbus.github.io/.
+The Modbus library used for Modbus communication is [eModbus](https://github.com/eModbus/eModbus).
+Documentation for the library is [here](https://emodbus.github.io/).
 
 ### Homeassistant
 
@@ -54,7 +54,7 @@ sensor:
 ### Minimal SunSpec Meter
 
 A minimal SunSpec compliant meter is available at Modbus ID 243. Only provides AC power and AC yield as if measuring the output of all registered inverters.
-To be used e.g. as a "Fronius Smart Meter TCP" as orginally done in https://github.com/AloisKlingler/OpenDTU-FroniusSM-MB.
+To be used e.g. as a "Fronius Smart Meter TCP" as orginally by [AloisKlingler](https://github.com/AloisKlingler/OpenDTU-FroniusSM-MB).
 
 ### Full SunSpec Meter
 
@@ -95,9 +95,9 @@ See: [src/ModbusDtuTotal.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-
 
 ## Build the firmware image
 
-Clone this repository, switch to branch "add-modbus" and compile following https://www.opendtu.solar/firmware/compile_vscode/.
+Clone this repository, switch to branch "add-modbus" and compile following the guide of [OpenDTU](https://www.opendtu.solar/firmware/compile_vscode/).
 
-You (probably) do not have to compile the webapp (see https://www.opendtu.solar/firmware/compile_webapp/) in advance as an updated webapp is alread part of this repository. Use the included OpenDTU_yarn.yaml with the VSCode Extension Conda Wingman to create an envorinment with the required dependencies for builing the webapp.
+You (probably) do not have to compile the webapp (see [OpenDTU guide](https://www.opendtu.solar/firmware/compile_webapp/)) in advance as an updated webapp is alread part of this repository. Use the included OpenDTU_yarn.yaml with the VSCode Extension Conda Wingman to create an envorinment with the required dependencies for builing the webapp.
 
 ## !! IMPORTANT UPGRADE NOTES !!
 
