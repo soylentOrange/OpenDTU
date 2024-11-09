@@ -83,6 +83,8 @@ The Modbus id of the Hoymiles Modbus TCP Interface is 1 by default.
 * Register 15: Alarm count
 * Register 16: Link status - TODO (return fixed statuscode 0x07)
 
+See also: [src/ModbusDtuPro.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuPro.cpp) for the registers.
+
 #### Minimal SunSpec Meter Interface registers
 
 The Modbus id of the minimal SunSpec meter is 253 by default.
@@ -91,7 +93,7 @@ See: [src/ModbusDtuMeter.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-
 #### Full SunSpec Meter Interface registers
 
 The Modbus id of the total SunSpec meter is 125 by default.
-See: [src/ModbusDtuTotal.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuTotal.cpp)for the registers.
+See: [src/ModbusDtuTotal.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuTotal.cpp) for the registers.
 
 ## Build the firmware image
 
@@ -136,3 +138,7 @@ Generated using: `git log --date=short --pretty=format:"* %h%x09%ad%x09%s" | gre
 ## Currently supported Inverters
 
 A list of all currently supported inverters can be found [here](https://www.opendtu.solar/hardware/inverter_overview/)
+
+## Acknowledgements
+
+This fork is based on the great work of

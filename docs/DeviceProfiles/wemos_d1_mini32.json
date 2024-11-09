@@ -1,0 +1,43 @@
+[
+    {
+        "name": "Wemos D1 Mini 32 LED1",
+        "nrf24": {
+            "miso": 19,
+            "mosi": 23,
+            "clk": 18,
+            "irq": 16,
+            "en": 4,
+            "cs": 5
+        },
+        "led": {
+            "led0": -1,
+            "led1": 2
+        }
+    },
+    {
+        "name": "Wemos D1 Mini 32 LED0",
+        "nrf24": {
+            "miso": 19,
+            "mosi": 23,
+            "clk": 18,
+            "irq": 16,
+            "en": 4,
+            "cs": 5
+        },
+        "led": {
+            "led0": 2,
+            "led1": -1
+        }
+    },
+    {
+        "name": "Wemos D1 Mini 32",
+        "nrf24": {
+            "miso": 19,
+            "mosi": 23,
+            "clk": 18,
+            "irq": 16,
+            "en": 4,
+            "cs": 5
+        }
+    }
+]
