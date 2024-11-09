@@ -1,10 +1,6 @@
 # OpenDTU
 
-[![OpenDTU Build](https://github.com/soylentOrange/OpenDTU/actions/workflows/build.yml/badge.svg)](https://github.com/soylentOrange/OpenDTU/actions/workflows/build.yml)
-[![cpplint](https://github.com/soylentOrange/OpenDTU/actions/workflows/cpplint.yml/badge.svg)](https://github.com/soylentOrange/OpenDTU/actions/workflows/cpplint.yml)
-[![Yarn Linting](https://github.com/soylentOrange/OpenDTU/actions/workflows/yarnlint.yml/badge.svg)](https://github.com/soylentOrange/OpenDTU/actions/workflows/yarnlint.yml)
-
-## Modbus Interface
+## Additional Modbus Interface
 
 OpenDTU is extended by a Modbus server as proposed in [PR#1893](https://github.com/tbnobody/OpenDTU/pull/1893) - see the original [fork of b0661](https://github.com/b0661/OpenDTU/tree/pr_modbus).
 
