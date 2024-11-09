@@ -86,16 +86,18 @@ The Modbus id of the Hoymiles Modbus TCP Interface is 1 by default.
 #### Minimal SunSpec Meter Interface registers
 
 The Modbus id of the minimal SunSpec meter is 253 by default.
+See: [src/ModbusDtuMeter.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuMeter.cpp) for the registers.
 
 #### Full SunSpec Meter Interface registers
 
 The Modbus id of the total SunSpec meter is 125 by default.
+See: [src/ModbusDtuTotal.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuTotal.cpp)for the registers.
 
 ## Build the firmware image
 
 Clone this repository, switch to branch "add-modbus" and compile following https://www.opendtu.solar/firmware/compile_vscode/.
 
-You (probably) do not have to compile the webapp (see https://www.opendtu.solar/firmware/compile_webapp/) in advance as an updated webapp is alread part of this repository.
+You (probably) do not have to compile the webapp (see https://www.opendtu.solar/firmware/compile_webapp/) in advance as an updated webapp is alread part of this repository. Use the included OpenDTU_yarn.yaml with the VSCode Extension Conda Wingman to create an envorinment with the required dependencies for builing the webapp.
 
 ## !! IMPORTANT UPGRADE NOTES !!
 
