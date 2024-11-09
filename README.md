@@ -137,4 +137,8 @@ A list of all currently supported inverters can be found [here](https://www.open
 
 ## Acknowledgements
 
-This fork is based on the great work of
+* This fork is based on the great project [OpenDTU](https://github.com/tbnobody/OpenDTU) of tbnobody.
+
+* [eModbus](https://github.com/eModbus/eModbus) is a great piece of software. To handle the dependencies, it's included as part of this repo having changed the AsyncTCP library from me-no-dev to use mathieucarbou's AsyncTCP library.
+
+* Finally, this fork is including a Modbus server as proposed in openDTU's [PR#1893](https://github.com/tbnobody/OpenDTU/pull/1893) - see the original [fork of b0661](https://github.com/b0661/OpenDTU/tree/pr_modbus). I merely ported the modbus functions to the current version of openDTU and got everything in working order.
