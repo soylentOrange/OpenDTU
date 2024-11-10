@@ -71,7 +71,7 @@ const router = createRouter({
         {
             path: '/info/modbus',
             name: 'Modbus',
-            component: ModbusInfoView
+            component: ModbusInfoView,
         },
         {
             path: '/info/mqtt',
@@ -96,7 +96,7 @@ const router = createRouter({
         {
             path: '/settings/modbus',
             name: 'Modbus Settings',
-            component: ModbusAdminView
+            component: ModbusAdminView,
         },
         {
             path: '/settings/mqtt',

@@ -83,7 +83,9 @@ export default defineComponent({
             }
 
             const fetchUrl =
-                'https://api.github.com/repos/soylentOrange/OpenDTU/compare/' + this.systemDataList.git_hash + '...HEAD';
+                'https://api.github.com/repos/soylentOrange/OpenDTU/compare/' +
+                this.systemDataList.git_hash +
+                '...HEAD';
 
             fetch(fetchUrl)
                 .then((response) => {

@@ -1,5 +1,10 @@
 <template>
-    <BasePage :title="$t('modbusinfo.ModbusInformation')" :isLoading="dataLoading" :show-reload="true" @reload="getModbusInfo">
+    <BasePage
+        :title="$t('modbusinfo.ModbusInformation')"
+        :isLoading="dataLoading"
+        :show-reload="true"
+        @reload="getModbusInfo"
+    >
         <CardElement :text="$t('modbusinfo.TCPSummary')" textVariant="text-bg-primary">
             <div class="table-responsive">
                 <table class="table table-hover table-condensed">
@@ -7,7 +12,11 @@
                         <tr>
                             <th>{{ $t('modbusinfo.Status') }}</th>
                             <td>
-                                <StatusBadge :status="modbusDataList.modbus_tcp_enabled" true_text="modbusinfo.Enabled" false_text="modbusinfo.Disabled" />
+                                <StatusBadge
+                                    :status="modbusDataList.modbus_tcp_enabled"
+                                    true_text="modbusinfo.Enabled"
+                                    false_text="modbusinfo.Disabled"
+                                />
                             </td>
                         </tr>
                         <tr>
@@ -50,7 +59,6 @@
                 </table>
             </div>
         </CardElement>
-
     </BasePage>
 </template>
 
@@ -66,7 +74,7 @@ export default defineComponent({
     components: {
         BasePage,
         CardElement,
-        StatusBadge
+        StatusBadge,
     },
     data() {
         return {
@@ -80,7 +88,7 @@ export default defineComponent({
     methods: {
         getModbusInfo() {
             this.dataLoading = true;
-            fetch("/api/modbus/status", { headers: authHeader() })
+            fetch('/api/modbus/status', { headers: authHeader() })
                 .then((response) => handleResponse(response, this.$emitter, this.$router))
                 .then((data) => {
                     this.modbusDataList = data;

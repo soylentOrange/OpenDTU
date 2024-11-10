@@ -47,7 +47,8 @@
                                 <router-link @click="onClick" class="dropdown-item" to="/settings/ntp">{{
                                     $t('menu.NTPSettings')
                                 }}</router-link>
-                            </li>                            <li>
+                            </li>
+                            <li>
                                 <router-link @click="onClick" class="dropdown-item" to="/settings/modbus">{{
                                     $t('menu.ModbusSettings')
                                 }}</router-link>
