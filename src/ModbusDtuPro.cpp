@@ -78,7 +78,7 @@ ModbusMessage DTUPro(ModbusMessage request) {
         for (uint16_t reg = addr; reg < (addr + words); reg++) {
             if (reg >= (DTUPRO_ADDR_DEVICE_SN_LIST + (num_inverters + 1) * DTUPRO_INV_SERIAL_REGISTER_COUNT)) {
                 // No more inverters, add 0 for end of inverters
-                response.add((uint16_t)static_cast<uint16_t>(0));
+                response.add(static_cast<uint16_t>(0));
             } else {
                 // Inverter serial number
                 uint64_t inv_serial = 0;
