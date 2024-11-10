@@ -78,7 +78,7 @@ ModbusMessage DTUPro(ModbusMessage request) {
         for (uint16_t reg = addr; reg < (addr + words); reg++) {
             if (reg >= (DTUPRO_ADDR_DEVICE_SN_LIST + (num_inverters + 1) * DTUPRO_INV_SERIAL_REGISTER_COUNT)) {
                 // No more inverters, add 0 for end of inverters
-                response.add((uint16_t)0);
+                response.add((uint16_t)static_cast<uint16_t>(0));
             } else {
                 // Inverter serial number
                 uint64_t inv_serial = 0;
@@ -99,16 +99,16 @@ ModbusMessage DTUPro(ModbusMessage request) {
 
                 switch (reg_idx) {
                     case 0:
-                        response.add((uint16_t)((inv_serial >> 32) & 0xFFFF));
+                        response.add(static_cast<uint16_t>((inv_serial >> 32) & 0xFFFF));
                         break;
                     case 1:
-                        response.add((uint16_t)((inv_serial >> 16) & 0xFFFF));
+                        response.add(static_cast<uint16_t>((inv_serial >> 16) & 0xFFFF));
                         break;
                     case 2:
-                        response.add((uint16_t)((inv_serial >> 0) & 0xFFFF));
+                        response.add(static_cast<uint16_t>((inv_serial >> 0) & 0xFFFF));
                         break;
                     default:
-                        response.add((uint16_t)0);
+                        response.add(static_cast<uint16_t>(0));
                         break;
                 }
             }
@@ -240,12 +240,12 @@ ModbusMessage DTUPro(ModbusMessage request) {
                     break;
                 case 9:
                     // Today Production (Wh) - uint16
-                    val = response.addUInt16((uint16_t)(statistics->getChannelFieldValue(TYPE_DC, channels[chan_idx].chan, FLD_YD) * 1));
+                    val = response.addUInt16(static_cast<uint16_t>(statistics->getChannelFieldValue(TYPE_DC, channels[chan_idx].chan, FLD_YD) * 1));
                     break;
                 case 10 ... 11:
                     // Total Production (Wh) - uint32
                     val = response.addUInt32(
-                        (uint32_t)(statistics->getChannelFieldValue(TYPE_DC, channels[chan_idx].chan, FLD_YT) * 1000),
+                        static_cast<uint32_t>(statistics->getChannelFieldValue(TYPE_DC, channels[chan_idx].chan, FLD_YT) * 1000),
                         reg_idx - 10);
                     break;
                 case 12:

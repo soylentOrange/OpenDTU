@@ -98,8 +98,8 @@ uint16_t ModbusDTUMessage::addUInt64AsHexString(const uint64_t val, const size_t
     // Check if value is already converted to hex string
     if (val != value.val_u64) {
         snprintf(&conv.u64_hex_str[0], sizeof(conv.u64_hex_str), "%0x%08x",
-                ((uint32_t)((val >> 32) & 0xFFFFFFFFUL)),
-                ((uint32_t)(val & 0xFFFFFFFFUL)));
+                static_cast<uint32_t>(((val >> 32) & 0xFFFFFFFFUL)),
+                static_cast<uint32_t>(val & 0xFFFFFFFFUL));
         // mark conversion
         value.val_u64 = val;
     }
