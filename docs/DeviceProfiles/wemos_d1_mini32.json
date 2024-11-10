@@ -12,22 +12,6 @@
         "led": {
             "led0": -1,
             "led1": 2
-        },
-        "display": {
-            "type": 0,
-            "data": 255,
-            "clk": 255,
-            "cs": 255,
-            "reset": 255
-        },
-        "eth": {
-            "enabled": false,
-            "clk_mode": 0,
-            "power": -1,
-            "phy_addr": 0,
-            "mdc": -1,
-            "mdio": -1,
-            "type": 0
         }
     },
     {
@@ -43,22 +27,6 @@
         "led": {
             "led0": 2,
             "led1": -1
-        },
-        "display": {
-            "type": 0,
-            "data": 255,
-            "clk": 255,
-            "cs": 255,
-            "reset": 255
-        },
-        "eth": {
-            "enabled": false,
-            "clk_mode": 0,
-            "power": -1,
-            "phy_addr": 0,
-            "mdc": -1,
-            "mdio": -1,
-            "type": 0
         }
     },
     {
@@ -70,26 +38,6 @@
             "irq": 16,
             "en": 4,
             "cs": 5
-        },
-        "led": {
-            "led0": -1,
-            "led1": -1
-        },
-        "display": {
-            "type": 0,
-            "data": 255,
-            "clk": 255,
-            "cs": 255,
-            "reset": 255
-        },
-        "eth": {
-            "enabled": false,
-            "clk_mode": 0,
-            "power": -1,
-            "phy_addr": 0,
-            "mdc": -1,
-            "mdio": -1,
-            "type": 0
         }
     }
 ]
