@@ -105,10 +105,10 @@ jobs:
         run: pio run -e ${{ matrix.environment }}
 
       - name: Rename Firmware
-        run: mv .pio/build/${{ matrix.environment }}/firmware.bin .pio/build/${{ matrix.environment }}/opendtumb-${{ matrix.environment }}.bin
+        run: mv .pio/build/${{ matrix.environment }}/firmware.bin .pio/build/${{ matrix.environment }}/opendtu-${{ matrix.environment }}.bin
 
       - name: Rename Factory Firmware
-        run: mv .pio/build/${{ matrix.environment }}/firmware.factory.bin .pio/build/${{ matrix.environment }}/opendtumb-${{ matrix.environment }}.factory.bin
+        run: mv .pio/build/${{ matrix.environment }}/firmware.factory.bin .pio/build/${{ matrix.environment }}/opendtu-${{ matrix.environment }}.factory.bin
 
       - uses: actions/upload-artifact@v4
         with:
