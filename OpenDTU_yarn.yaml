@@ -13,6 +13,4 @@ channels:
 dependencies:
   - python
   - pip
-  - nodejs
-  - yarn
   - dulwich
