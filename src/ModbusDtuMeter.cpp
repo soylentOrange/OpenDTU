@@ -135,8 +135,8 @@ address_error:
         response.setError(request.getServerID(), request.getFunctionCode(), ILLEGAL_DATA_ADDRESS);
     }
 
-respond:
-    HEXDUMP_D("Response FC03", response.data(), response.size());
+/* respond:
+    HEXDUMP_D("Response FC03", response.data(), response.size()); */
 
     // Send response back
     return response;
