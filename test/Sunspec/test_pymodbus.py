@@ -125,11 +125,11 @@ async def run_async_simple_client(comm, host, port, slave_id, framer=FramerType.
 
 if __name__ == "__main__":
     print(" ")
-    print("# check slave 243...")
+    print("# check slave 127...")
     asyncio.run(
-        run_async_simple_client("tcp", "192.168.178.112", 502, 243), debug=True
+        run_async_simple_client("tcp", "192.168.178.112", 502, 127), debug=True
     )
-    print("# done checking slave 243!")
+    print("# done checking slave 127!")
     print(" ")
     print("# check slave 125...")
     asyncio.run(

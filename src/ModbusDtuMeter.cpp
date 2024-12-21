@@ -94,7 +94,7 @@ ModbusMessage OpenDTUMeter(ModbusMessage request) {
                         break;
                 }
             } else if (reg < 40195) { // >= 40069
-                // Model 211 - Single Phase (AN or AB) Meter FLOAT Model
+                // Model 213 - wye-connect three phase (abcn) meter
                 // The Meter acts as a virtual meter that combines the individual
                 // measured values of the inverters, if useful.
                 uint8_t reg_idx = reg - 40069;
@@ -102,7 +102,7 @@ ModbusMessage OpenDTUMeter(ModbusMessage request) {
                 switch (reg_idx) {
                     case 0:
                         // Model ID
-                        response.addUInt16(211);
+                        response.addUInt16(213);
                         break;
                     case 1:
                         // SunSpec model register count (length without model header (2))

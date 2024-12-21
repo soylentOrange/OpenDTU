@@ -12,7 +12,7 @@ Set the Python Interpreter for VS Code to the environment's one:
 Show and Run Commands > Python: Select Interpreter
 
 You could also use the suns.py script directly:
-python3 lib/suns.py -a 243 -i 192.168.178.36 -p 501
+python3 lib/suns.py -a 127 -i 192.168.178.36 -p 501
 
 Ctrl+F5 to run in VSCode.
 """
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     print('SunSpec compatibility test\nusing pySunSpec2\n\n')
 
     # Settings for the ModbusTCP-Device
-    SLAVE_ID = 243
+    SLAVE_ID = 127
     IPADDR='192.168.178.112'
     IPPORT=502
     TIMEOUT=10
