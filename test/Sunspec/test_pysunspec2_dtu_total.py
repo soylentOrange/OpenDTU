@@ -99,14 +99,6 @@ if __name__ == '__main__':
     except Exception as e:
         logging.error(e)
 
-    # # print ac_meter-model
-    # try:
-    #     model_ac_meter = d.ac_meter[0]
-    #     model_ac_meter.read()
-    #     print(model_ac_meter)
-    # except Exception as e:
-    #     logging.error(e)
-
     try:
         logging.info('close device...')
         d.close()
