@@ -35,7 +35,7 @@
 #define MODBUS_CLIENTS 4
 #define MODBUS_ID_DTUPRO 1
 #define MODBUS_ID_TOTAL 125
-#define MODBUS_ID_METER 243
+#define MODBUS_ID_METER 127
 
 #define MQTT_ENABLED false
 #define MQTT_HOST ""
