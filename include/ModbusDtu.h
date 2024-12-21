@@ -31,7 +31,7 @@ private:
         // uint64 converted to hex string
         char u64_hex_str[sizeof(uint64_t) * sizeof(uint16_t) + 1];
         // ip address converted to String
-        char ip_str[12];
+        char ip_str[16];
     } conv;
 
 public:

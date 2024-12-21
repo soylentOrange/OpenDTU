@@ -93,7 +93,7 @@ ModbusMessage OpenDTUTotal(ModbusMessage request) {
                         response.addUInt8(request.getServerID());
                         break;
                     default:
-                        // Pad
+                        // Points set to NaN or padding
                         response.addUInt16(0x8000);
                         break;
                 }
@@ -110,9 +110,29 @@ ModbusMessage OpenDTUTotal(ModbusMessage request) {
                         // SunSpec model register count (length without model header (2))
                         response.addUInt16(98);
                         break;
-                    case 2 ... 4:
+                    case 2 ... 5:
                         // Interface name
-                        response.addString(NetworkSettings.macAddress(), reg_idx - 2);
+                        response.addString(NetworkSettings.NetworkMode() == network_mode::WiFi ? "wifi" : "eth", reg_idx - 2);
+                        break;
+                    case 6:
+                        // Config Status: VALID_SETTING: 1 (enum16)
+                        response.addUInt16(1);
+                        break;
+                    case 7:
+                        // Change Status: (bitfield16)
+                        response.addUInt16(0);
+                        break;
+                    case 8:
+                        // Config Capability: CFG_SETTABLE: bit 4 (bitfield16)
+                        response.addUInt16(16);
+                        break;
+                    case 9:
+                        // IPv4 Config: DHCP: 1 - Static: 0 (enum16)
+                        response.addUInt16(Configuration.get().WiFi.Dhcp ? 1 : 0);
+                        break;
+                    case 10:
+                        // Control:
+                        response.addUInt16(0);
                         break;
                     case 11 ... 18:
                         // IP - string
@@ -151,12 +171,12 @@ ModbusMessage OpenDTUTotal(ModbusMessage request) {
                         response.addString(NetworkSettings.getHostname(), reg_idx - 87);
                         break;
                     default:
-                        // Points set to NaN
+                        // Points set to NaN or padding
                         response.addUInt16(0x8000);
                         break;
                 }
             } else if (reg < 40232) { // >= 40170
-                // Model 113 - Inverter (Three Phase) FLOAT Model
+                // Model 111 - Inverter (Single Phase) FLOAT Model
                 // The Inverter Manager acts as a virtual inverter that combines the individual
                 // measured values of the inverters, if useful.
                 uint8_t reg_idx = reg - 40170;
@@ -164,18 +184,18 @@ ModbusMessage OpenDTUTotal(ModbusMessage request) {
                 switch (reg_idx) {
                     case 0:
                         // Model ID
-                        response.addUInt16(113);
+                        response.addUInt16(111);
                         break;
                     case 1:
                         // SunSpec model register count (length without model header (2))
                         response.addUInt16(60);
                         break;
                     case 22 ... 23:
-                        // AC Power (W)
+                        // AC Power (W) - required for EVCC, usage pv
                         response.addFloat32(Datastore.getTotalAcPowerEnabled(), reg_idx - 22);
                         break;
                     case 32 ... 33:
-                         // AC Energy (Wh)
+                         // AC Energy (Wh) - required for EVCC, usage pv
                         response.addFloat32(Datastore.getTotalAcYieldTotalEnabled() * 1000, reg_idx - 32);
                         break;
                     case 38 ... 39:
@@ -196,8 +216,17 @@ ModbusMessage OpenDTUTotal(ModbusMessage request) {
                         break;
                 }
             } else if (reg < 40234) { // >= 40232
-                // Mark end of models
-                response.addUInt16(0);
+                uint8_t reg_idx = reg - 40232;
+                switch (reg_idx) {
+                    case 0:
+                        // Mark empty model
+                        response.addUInt16(0xFFFF);
+                        break;
+                    case 1:
+                        // empty model with a length of 0
+                        response.addUInt16(0);
+                        break;
+                }
             } else {
                 goto address_error;
             }

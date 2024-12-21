@@ -121,12 +121,13 @@ uint16_t ModbusDTUMessage::addIPAddressAsString(const IPAddress val, const size_
     // Check if value is already converted to hex string
     if (val != value.val_ip) {
         String str(val.toString());
+        std::memset(&conv.ip_str, 0, sizeof(conv.ip_str));
         std::memcpy(&conv.ip_str, str.c_str(), std::min(sizeof(conv.ip_str), str.length()));
         // mark conversion
         value.val_ip = val;
     }
 
-    return addString(&conv.ip_str[0], sizeof(conv.ip_str), reg_offset);
+    return addString(&conv.ip_str[0], static_cast<String>(&conv.ip_str[0]).length(), reg_offset);
 }
 
 // Create server(s)
