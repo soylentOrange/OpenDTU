@@ -75,13 +75,29 @@ if __name__ == '__main__':
         logging.error(e)
         MB_EXCPT_CNT += 1
 
-    # # print common-model
-    # try:
-    #     model_common = d.common[0]
-    #     model_common.read()
-    #     print(model_common)
-    # except Exception as e:
-    #     logging.error(e)
+    # print common-model
+    try:
+        model_common = d.common[0]
+        model_common.read()
+        print(model_common)
+    except Exception as e:
+        logging.error(e)
+
+    # print model_12
+    try:
+        model_model_12 = d.model_12[0]
+        model_model_12.read()
+        print(model_model_12)
+    except Exception as e:
+        logging.error(e)
+
+    # print inverter-model
+    try:
+        model_inverter = d.inverter[0]
+        model_inverter.read()
+        print(model_inverter)
+    except Exception as e:
+        logging.error(e)
 
     # # print ac_meter-model
     # try:
