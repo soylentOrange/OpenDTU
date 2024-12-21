@@ -117,7 +117,7 @@ ModbusMessage OpenDTUMeter(ModbusMessage request) {
                         response.addFloat32(Datastore.getTotalAcYieldTotalEnabled() * 1000, reg_idx - 60);
                         break;
                     case 68 ... 69:
-                         // Total Watt-hours Imported (Wh), Total Real Energy Exported
+                         // Total Watt-hours Imported (Wh), Total Real Energy Imported
                         response.addFloat32(0, reg_idx - 68);
                         break;
                     case 124 ... 125:
