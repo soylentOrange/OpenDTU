@@ -60,8 +60,9 @@ sensor:
 A minimal SunSpec compliant meter is available at Modbus ID 243. Only provides AC power and AC yield as if measuring the output of all registered inverters.
 To be used e.g. as a "Fronius Smart Meter TCP" as orginally by [AloisKlingler](https://github.com/AloisKlingler/OpenDTU-FroniusSM-MB).
 
-**Fixed:** Minimal SunSpec Meter is working now! Tested with [pySunSpec2](https://github.com/sunspec/pysunspec2).
-See output of the [test script](test/Sunspec/test_pysunspec2_dtu_meter.py):
+**Fixed:** This SunSpec Meter is functional now! Tested with [pySunSpec2](https://github.com/sunspec/pysunspec2).
+
+See output of the [test script](test/Sunspec/test_pysunspec2_dtu_meter.py) against id 243 (minmal meter):
 
 ```yaml
 SunSpec compatibility test
@@ -100,7 +101,7 @@ ac_meter:
   PPVphBC:  None
   PPVphCA:  None
   Hz:  None
-  W:  -0.0
+  W:  -18.600000381469727
   WphA:  None
   WphB:  None
   WphC:  None
@@ -116,7 +117,7 @@ ac_meter:
   PFphA:  None
   PFphB:  None
   PFphC:  None
-  TotWhExp:  0.0
+  TotWhExp:  1306964.0
   TotWhExpPhA:  None
   TotWhExpPhB:  None
   TotWhExpPhC:  None
@@ -156,9 +157,92 @@ INFO: Done!
 
 ### Full SunSpec Meter
 
-A SunSpec compliant meter is available at Modbus ID 125, which provides the OpenDTU aggregated data from all registered inverters.
-To be used e.g. in [evcc](https://evcc.io/).
-**Warning!** The Full SunSpec Meter is still broken...
+A SunSpec compliant inverter is available at Modbus ID 125, which provides the OpenDTU aggregated data from all registered inverters. To be used e.g. in [evcc](https://evcc.io/).
+**Fixed:** This SunSpec Meter is functional now! Tested with [pySunSpec2](https://github.com/sunspec/pysunspec2).
+
+See output of the [test script](test/Sunspec/test_pysunspec2_dtu_total.py) against id 125 (inverter):
+
+```yaml
+SunSpec compatibility test
+using pySunSpec2
+
+INFO: Test SunSpec-compatibility of 125 @ 192.168.178.112:502
+INFO: open and scan device...
+
+Got models:
+  common
+  model_12
+  inverter
+
+common:
+  ID:  1
+  L:  66
+  Mn:  OpenDTU
+  Md:  OpenDTU Total
+  Opt:  Wemos D1 Mini 32
+  Vr:  v24.11.7
+  SN:  199980155940
+  DA:  125
+  Pad:  32768
+
+model_12:
+  ID:  12
+  L:  98
+  Nam:  wifi
+  CfgSt:  1
+  ChgSt:  0
+  Cap:  16
+  Cfg:  1
+  Ctl:  0
+  Addr:  192.168.178.112
+  Msk:  255.255.255.0
+  Gw:  192.168.178.1
+  DNS1:  192.168.178.244
+  DNS2:  0.0.0.0
+  NTP1:  None
+  NTP2:  None
+  DomNam:  None
+  HostNam:  OpenDTU
+  Pad:  32768
+
+inverter:
+  ID:  111
+  L:  60
+  A:  None
+  AphA:  None
+  AphB:  None
+  AphC:  None
+  PPVphAB:  None
+  PPVphBC:  None
+  PPVphCA:  None
+  PhVphA:  None
+  PhVphB:  None
+  PhVphC:  None
+  W:  15.699999809265137
+  Hz:  None
+  VA:  None
+  VAr:  None
+  PF:  None
+  WH:  1306962.875
+  DCA:  None
+  DCV:  None
+  DCW:  16.5
+  TmpCab:  None
+  TmpSnk:  None
+  TmpTrns:  None
+  TmpOt:  None
+  St:  0
+  StVnd:  0
+  Evt1:  0
+  Evt2:  0
+  EvtVnd1:  0
+  EvtVnd2:  0
+  EvtVnd3:  0
+  EvtVnd4:  0
+
+INFO: close device...
+INFO: Done!
+```
 
 ### Modbus Interface Details
 
@@ -167,17 +251,25 @@ The Modbus TCP server is available by default at port 502 and supports modbus FC
 #### Hoymiles Modbus TCP Interface registers
 
 The Modbus id of the Hoymiles Modbus TCP Interface is 1 by default.
-See: [src/ModbusDtuPro.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuPro.cpp) for the registers.
+See: [src/ModbusDtuPro.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuPro.cpp) for the actually implemented registers.
 
 #### Minimal SunSpec Meter Interface registers
 
 The Modbus id of the minimal SunSpec meter is 243 by default.
-See: [src/ModbusDtuMeter.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuMeter.cpp) for the registers.
+See: Model 211 - Single Phase (AN or AB) Meter FLOAT Model in the [SunSpec Model repository](https://github.com/sunspec/models) for all of the registers and [src/ModbusDtuMeter.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuMeter.cpp) for the actually implemented registers.
+For a secondary energy meter, added via modbus to a Fronius inverter (doesn't apply to all of their models), only a subset of the SunSpec mandatory points seems required:
+
+* Total Real Power (in W): Point 'W' in model 211 at offset 26
+* Total Real Energy Exported (in Wh): Point 'TotWhExp' in model 211 at offset 58
 
 #### Full SunSpec Meter Interface registers
 
 The Modbus id of the total SunSpec meter is 125 by default.
-See: [src/ModbusDtuTotal.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuTotal.cpp) for the registers.
+See: Model 111 - Inverter (Single Phase) FLOAT Model in the [SunSpec Model repository](https://github.com/sunspec/models) for all of the registers and [src/ModbusDtuTotal.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuTotal.cpp) for the actually implemented registers.
+For an inverter in pv usage mode, EVCC (see [sunspec-inverter template](https://github.com/evcc-io/evcc/blob/master/templates/definition/meter/sunspec-inverter.yaml)) needs only:
+
+* AC Power (in W): point 'W' in model 111 at offset 20
+* AC Energy (in Wh): point 'WH' in model 111 at offset 30
 
 ## Build the firmware image
 
