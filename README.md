@@ -257,15 +257,19 @@ See: [src/ModbusDtuPro.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-mo
 
 The Modbus ID of the minimal SunSpec meter is 127 by default.
 See: Model 213 - Wye-Connect Meter Model (float) in the [SunSpec Model repository](https://github.com/sunspec/models) for all of the registers and [src/ModbusDtuMeter.cpp](https://github.com/soylentOrange/OpenDTU/blob/add-modbus/src/ModbusDtuMeter.cpp) for the actually implemented registers.
-For a secondary energy meter, added via modbus to a Fronius inverter (doesn't apply to all of their models), only a subset of the SunSpec mandatory points seems required:
+For a secondary production meter, added via modbus to a Fronius inverter (doesn't apply to all of their models), only a subset of the SunSpec mandatory points seems required:
 
 * Total Real Power (in W): Point 'W' in model 213 at offset 26
 * Total Real Energy Exported (in Wh): Point 'TotWhExp' in model 213 at offset 58
 
-Additional Info when using the minimal SunSpec meter with fronius inverters:
+Additional Info when using the Minimal SunSpec Meter with Your Inverter:
 
 * The current firmware for my inverter will accept only a limited range for the modbus ID (thus, I changed the default value to 127)
 * The SunSpec model of the meter needs to be Model 213 - Wye-Connect Meter Model (float). Otherwise my inverter refused service.
+* Adding OpenDTU to the inverter is done by adding a component to your system (Production meter, Category: Inverter, Modbus Address: 127)
+* **Note**: You need to have the technician password in order to add OpenDTU to your inverter
+
+![Solarweb screenshot](docs/screeshot_solarweb.png)
 
 #### Full SunSpec Meter Interface registers
 
