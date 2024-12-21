@@ -9,6 +9,7 @@
 // OpenDTU
 #include "Hoymiles.h"
 #include "Configuration.h"
+#include "MessageOutput.h"
 #include "ModbusDtu.h"
 #include "ModbusSettings.h"
 

@@ -29,7 +29,7 @@ private:
         // fixed point converted to u16
         uint16_t fixed_point_u16;
         // uint64 converted to hex string
-        char u64_hex_str[sizeof(uint64_t) * 8 + 1];
+        char u64_hex_str[sizeof(uint64_t) * sizeof(uint16_t) + 1];
         // ip address converted to String
         char ip_str[12];
     } conv;
@@ -55,6 +55,9 @@ public:
 
     // Add string to Modbus register
     uint16_t addString(const String &str, const size_t reg_offset);
+
+    // Add uint8 to Modbus register
+    uint16_t addUInt8(const uint8_t val);
 
     // Add uint16 to Modbus register
     uint16_t addUInt16(const uint16_t val);

@@ -15,6 +15,7 @@ uint8_t temprature_sens_read();
 #include "driver/temp_sensor.h"
 #endif
 
+static const char* TAG = "CpuTemperature.cpp";
 CpuTemperatureClass CpuTemperature;
 
 float CpuTemperatureClass::read()

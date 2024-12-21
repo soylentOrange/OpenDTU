@@ -8,6 +8,7 @@
 // OpenDTU
 #include "Hoymiles.h"
 #include "Configuration.h"
+#include "MessageOutput.h"
 #include "Datastore.h"
 #include "ModbusDtu.h"
 #include "ModbusSettings.h"
@@ -33,6 +34,13 @@ ModbusMessage OpenDTUMeter(ModbusMessage request) {
     uint16_t response_size = words * 2 + 6;
     ModbusDTUMessage response(response_size);     // The Modbus message we are going to give back
 
+    // get the version string from compiled constant
+    std::string strVersion = static_cast<std::string>(__COMPILED_GIT_HASH__);
+    size_t hyphen_pos = strVersion.find_first_of('-');
+    if (hyphen_pos != std::string::npos) {
+        strVersion = static_cast<std::string>(__COMPILED_GIT_HASH__).substr(0, hyphen_pos);
+    }
+
     LOG_D("Request FC03 0x%04x:%d - response with size %d\n", (int)addr, (int)words, (int)response_size);
 
     if (addr >= 40000) {
@@ -43,7 +51,7 @@ ModbusMessage OpenDTUMeter(ModbusMessage request) {
 
         // Complete response
         for (uint16_t reg = addr; reg < (addr + words); reg++) {
-            if (reg < 40070) {
+            if (reg < 40069) {
                 // Model 1 - SunSpec Common Registers
                 uint8_t reg_idx = reg - 40000;
 
@@ -58,7 +66,7 @@ ModbusMessage OpenDTUMeter(ModbusMessage request) {
                         break;
                     case 3:
                         // SunSpec model register count (length without header (4))
-                        response.addUInt16(66);
+                        response.addUInt16(65);
                         break;
                     case 4 ... 19:
                         // Manufacturer - string
@@ -74,7 +82,7 @@ ModbusMessage OpenDTUMeter(ModbusMessage request) {
                         break;
                     case 44 ... 51:
                         // Version - string
-                        response.addString(__COMPILED_GIT_HASH__, reg_idx - 44);
+                        response.addString(strVersion.c_str(), strVersion.length(), reg_idx - 44);
                         break;
                     case 52 ... 67:
                         // Serial Number - string
@@ -82,18 +90,14 @@ ModbusMessage OpenDTUMeter(ModbusMessage request) {
                         break;
                     case 68:
                         // Device Address - uint16
-                        response.addUInt16(request.getServerID());
-                        break;
-                    default:
-                        // Pad
-                        response.addUInt16(0x8000);
+                        response.addUInt8(request.getServerID());
                         break;
                 }
-            } else if (reg < 40198) { // >= 40070
+            } else if (reg < 40195) { // >= 40069
                 // Model 211 - Single Phase (AN or AB) Meter FLOAT Model
                 // The Meter acts as a virtual meter that combines the individual
                 // measured values of the inverters, if useful.
-                uint8_t reg_idx = reg - 40070;
+                uint8_t reg_idx = reg - 40069;
 
                 switch (reg_idx) {
                     case 0:
@@ -112,6 +116,10 @@ ModbusMessage OpenDTUMeter(ModbusMessage request) {
                          // Total Watt-hours Exported (Wh), Total Real Energy Exported
                         response.addFloat32(Datastore.getTotalAcYieldTotalEnabled() * 1000, reg_idx - 60);
                         break;
+                    case 68 ... 69:
+                         // Total Watt-hours Imported (Wh), Total Real Energy Exported
+                        response.addFloat32(0, reg_idx - 68);
+                        break;
                     case 124 ... 125:
                         // bitfield32
                         response.addUInt16(0);
@@ -121,9 +129,18 @@ ModbusMessage OpenDTUMeter(ModbusMessage request) {
                         response.addFloat32(NAN, reg_idx & 0x01);
                         break;
                 }
-            } else if (reg < 40200) { // >= 40198
-                // Mark end of models
-                response.addUInt16(0);
+            } else if (reg < 40197) { // >= 40195
+                uint8_t reg_idx = reg - 40195;
+                switch (reg_idx) {
+                    case 0:
+                        // Mark empty model
+                        response.addUInt16(0xFFFF);
+                        break;
+                    case 1:
+                        // empty model with a length of 0
+                        response.addUInt16(0);
+                        break;
+                }
             } else {
                 goto address_error;
             }
@@ -135,8 +152,8 @@ address_error:
         response.setError(request.getServerID(), request.getFunctionCode(), ILLEGAL_DATA_ADDRESS);
     }
 
-/* respond:
-    HEXDUMP_D("Response FC03", response.data(), response.size()); */
+    // Debug output of full response
+    HEXDUMP_D("Response FC03", response.data(), response.size());
 
     // Send response back
     return response;

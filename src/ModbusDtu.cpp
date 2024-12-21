@@ -53,10 +53,15 @@ uint16_t ModbusDTUMessage::addFloatAsDecimalFixedPoint16(const float_t &val, con
 
 uint16_t ModbusDTUMessage::addString(const char * const str, const size_t length, const size_t reg_offset) {
     // Check if the position is within the bounds of the string
+    // Consider the case that the string is of uneven size
     size_t offset = reg_offset * sizeof(uint16_t);
-    if (offset + sizeof(uint16_t) <= length) {
+    if (offset + sizeof(uint16_t) <= length + static_cast<size_t>(length % 2)) {
         // Reinterpret the memory at position 'offset' as uint16_t
         std::memcpy(&value.val_u16, str + offset, sizeof(uint16_t));
+        // Swap byte-order of the two chars within the val_u16
+        // BTW using std::byteswap would be nice but is unsupported...
+        // value.val_u16 = std::byteswap(value.val_u16);
+        value.val_u16 = static_cast<uint16_t>(((value.val_u16 & 0xFF00) >> 8) | ((value.val_u16 & 0xFF) << 8));
     } else {
         value.val_u16 = 0;
     }
@@ -67,6 +72,11 @@ uint16_t ModbusDTUMessage::addString(const char * const str, const size_t length
 
 uint16_t ModbusDTUMessage::addString(const String &str, const size_t reg_offset) {
     return addString(str.c_str(), str.length(), reg_offset);
+}
+
+uint16_t ModbusDTUMessage::addUInt8(const uint8_t val) {
+    add(static_cast<uint16_t>(val));
+    return static_cast<uint16_t>(val);
 }
 
 uint16_t ModbusDTUMessage::addUInt16(const uint16_t val) {
@@ -104,7 +114,7 @@ uint16_t ModbusDTUMessage::addUInt64AsHexString(const uint64_t val, const size_t
         value.val_u64 = val;
     }
 
-    return addString(&conv.u64_hex_str[0], sizeof(conv.u64_hex_str), reg_offset);
+    return addString(&conv.u64_hex_str[0], static_cast<String>(&conv.u64_hex_str[0]).length(), reg_offset);
 }
 
 uint16_t ModbusDTUMessage::addIPAddressAsString(const IPAddress val, const size_t reg_offset) {

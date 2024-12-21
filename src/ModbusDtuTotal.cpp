@@ -8,6 +8,7 @@
 // OpenDTU
 #include "Hoymiles.h"
 #include "Configuration.h"
+#include "MessageOutput.h"
 #include "Datastore.h"
 #include "ModbusDtu.h"
 #include "ModbusSettings.h"
@@ -32,6 +33,13 @@ ModbusMessage OpenDTUTotal(ModbusMessage request) {
 
     uint16_t response_size = words * 2 + 6;
     ModbusDTUMessage response(response_size);     // The Modbus message we are going to give back
+
+    // get the version string from compiled constant
+    std::string strVersion = static_cast<std::string>(__COMPILED_GIT_HASH__);
+    size_t hyphen_pos = strVersion.find_first_of('-');
+    if (hyphen_pos != std::string::npos) {
+        strVersion = static_cast<std::string>(__COMPILED_GIT_HASH__).substr(0, hyphen_pos);
+    }
 
     LOG_D("Request FC03 0x%04x:%d - response with size %d\n", (int)addr, (int)words, (int)response_size);
 
@@ -74,7 +82,7 @@ ModbusMessage OpenDTUTotal(ModbusMessage request) {
                         break;
                     case 44 ... 51:
                         // Version - string
-                        response.addString(__COMPILED_GIT_HASH__, reg_idx - 44);
+                        response.addString(strVersion.c_str(), strVersion.length(), reg_idx - 44);
                         break;
                     case 52 ... 67:
                         // Serial Number - string
@@ -82,7 +90,7 @@ ModbusMessage OpenDTUTotal(ModbusMessage request) {
                         break;
                     case 68:
                         // Device Address - uint16
-                        response.addUInt16(request.getServerID());
+                        response.addUInt8(request.getServerID());
                         break;
                     default:
                         // Pad
@@ -201,8 +209,8 @@ address_error:
         response.setError(request.getServerID(), request.getFunctionCode(), ILLEGAL_DATA_ADDRESS);
     }
 
-/* respond:
-    HEXDUMP_D("Response FC03", response.data(), response.size()); */
+
+    HEXDUMP_D("Response FC03", response.data(), response.size());
 
     // Send response back
     return response;
