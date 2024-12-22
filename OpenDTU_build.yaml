@@ -7,10 +7,10 @@
 # Or, when having the Conda Wingman extsion installed in VS Code
 # just build (or activate) this environment using Wingman commands
 # Still, you might need to advise VS Code to use the correct python interpreter
-name: OpenDTU_yarn
+name: OpenDTU_build
 channels:
   - conda-forge
 dependencies:
-  - python
+  - python=3.12
   - pip
   - dulwich

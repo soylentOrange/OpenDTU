@@ -280,11 +280,47 @@ For an inverter in pv usage mode, EVCC (see [sunspec-inverter template](https://
 * AC Power (in W): point 'W' in model 111 at offset 20
 * AC Energy (in Wh): point 'WH' in model 111 at offset 30
 
+To include the meter in EVCC, add an entry to the configuration `evcc.yaml`:
+
+```YAML
+  - name: OpenDTU
+    type: template
+    template: sunspec-inverter
+    usage: pv
+    modbus: tcpip
+    id: 125
+    host: 192.168.178.XXX # Hostname
+    port: 502 # Port
+```
+
 ## Build the firmware image
 
-Clone this repository, and compile following the guide of [OpenDTU](https://www.opendtu.solar/firmware/compile_vscode/).
+Clone this repository, and compile following the guide of [OpenDTU](https://www.opendtu.solar/firmware/compile_vscode/). Use the included OpenDTU_build.yaml with the VSCode Extension Conda Wingman to create an environment with the required dependencies for building the firmware.
 
-You (probably) do not have to compile the webapp (see [OpenDTU guide](https://www.opendtu.solar/firmware/compile_webapp/)) in advance as an updated webapp is alread part of this repository. Use the included OpenDTU_yarn.yaml with the VSCode Extension Conda Wingman to create an environment with the required dependencies for building the webapp.
+You (probably) do not have to compile the webapp (see [OpenDTU guide](https://www.opendtu.solar/firmware/compile_webapp/)) in advance as an updated webapp is alread part of this repository. On my mac, I set up the build environment with:
+
+```bash
+# install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+# install node
+nvm install --lts
+
+# install yarn
+nvm use --lts
+npm install --global yarn
+```
+
+To build the webapp, I use:
+
+```bash
+cd webapp
+nvm use --lts
+yarn cache clean
+yarn install
+yarn format
+yarn build
+```
 
 ## Background
 
